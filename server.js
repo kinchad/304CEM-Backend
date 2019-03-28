@@ -12,8 +12,8 @@ App.use(function(req, res, next) {
 })
 App.use('/', forex)
 
-const port = 10888
+const port = 7777
 
 App.listen(port, () => {
-    console.log(`Server is up and running on port numbet ${port}`)
+    console.log(`API Server is up and running on port numbet ${port}`)
 })
