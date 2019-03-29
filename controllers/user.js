@@ -1,5 +1,5 @@
 const mysql = require('mysql')
-
+const md5 = require('md5')
 var con = mysql.createConnection({
     host:'localhost',
     user:'root',
@@ -7,7 +7,6 @@ var con = mysql.createConnection({
     database:'forex',
     dbPort:'3306'
 })
-
 exports.register = function(req,res){
     var login = req.body.login
     var password = req.body.password

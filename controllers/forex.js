@@ -12,7 +12,7 @@ exports.test = function (req, res) {
     res.send({"status": 200, "Description": "Well... This is only a testing... "})
 }
 exports.getLatestCurrency = function(req, res){
-    sql = 'select * from currency'
+    sql = 'select * from currency order by time'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)

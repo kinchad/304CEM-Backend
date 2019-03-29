@@ -31,7 +31,7 @@ route.use((err, req, res, next)=> {
         if(err instanceof ValidationError) {
             res.status(422).send({"status": 422, "description" : err.message})   // Unprocessable Entity
         } else {
-            console.log("Help")
+            console.log(err)
         }
     } else {
         next()
