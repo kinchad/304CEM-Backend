@@ -8,18 +8,19 @@ var con = mysql.createConnection({
     dbPort:'3306'
 })
 exports.register = function(req,res){
-    var login = req.body.login
+    var login = req.body.loginID
     var password = req.body.password
     var confirmPwd = req.body.confirmPwd
-    var name = req.body.name
+    var name = req.body.userName
     var email = req.body.email
     sql = 'insert into user values("'+login+'","'+md5(password+'forexWEB')+'","'+name+'","'+email+'")'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(
             '<script>alert("Success.");</script>'+
-            '<br><a href="http://localhost:8080/">Back to home page</a>'
+            '<br><a href="http://localhost:4200/">Back to home page</a>'
         )
+        //res.send("123")
     })
 }
 exports.userLogin =  function(req,res){
