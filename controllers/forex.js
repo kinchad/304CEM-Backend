@@ -11,6 +11,9 @@ var con = mysql.createConnection({
 exports.test = function (req, res) {
     res.send({"status": 200, "Description": "Well... This is only a testing... "})
 }
+exports.testAuto = function(a,b){
+    return a+b
+}
 exports.getLatestCurrency = function(req, res){
     sql = 'select * from currency order by time'
     con.query(sql,function(err,result){

@@ -20,9 +20,14 @@ exports.register = function(req,res){
             '<script>alert("Success.");</script>'+
             '<br><a href="http://localhost:4200/">Back to home page</a>'
         )
-        //res.send("123")
     })
 }
 exports.userLogin =  function(req,res){
-
+    var login = req.body.loginID
+    var password = req.body.password
+    sql = 'select login, password from user where login="'+login+'" and password="'+md5(password+'forexWEB')+'"'
+    con.query(sql,function(err,result){
+        if(err) throw err
+        res.send('login>>')
+    })
 }
