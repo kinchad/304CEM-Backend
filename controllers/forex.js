@@ -15,7 +15,7 @@ exports.testAuto = function(a,b){
     return a+b
 }
 exports.getLatestCurrency = function(req, res){
-    sql = 'select * from currency order by time'
+    sql = 'select name, bid , ask, max(time) as time from currency group by name'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -33,7 +33,8 @@ exports.get7DayPredict = function(req,res){
     name = req.query.name
     time = req.query.time
     priceType = req.query.priceType
-    sql = 'select "'+priceType+'" from prediction_7day where name="'+name+'" and time="'+time+'"'
+    algorithm = req.query.algorithm
+    sql = 'select "'+priceType+'" from prediction_7day where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -43,7 +44,8 @@ exports.get1MonthPredict = function(req,res){
     name = req.query.name
     time = req.query.time
     priceType = req.query.priceType
-    sql = 'select "'+priceType+'" from prediction_1month where name="'+name+'" and time="'+time+'"'
+    algorithm = req.query.algorithm
+    sql = 'select "'+priceType+'" from prediction_1month where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -53,7 +55,8 @@ exports.get1YearPredict = function(req,res){
     name = req.query.name
     time = req.query.time
     priceType = req.query.priceType
-    sql = 'select "'+priceType+'" from prediction_1year where name="'+name+'" and time="'+time+'"'
+    algorithm = req.query.algorithm
+    sql = 'select "'+priceType+'" from prediction_1year where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)

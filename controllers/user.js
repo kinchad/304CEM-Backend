@@ -23,8 +23,6 @@ exports.register = function(req,res){
 exports.userLogin =  function(req,res){
     var login = req.body.loginID
     var password = req.body.password
-    console.log(login)
-    console.log(password)
     sql = 'select * from user where login="'+login+'" and password="'+md5(password+'forexWEB')+'"'
     con.query(sql,function(err,result){        
         if(err) return res.status(500).send('Server error.')
@@ -33,5 +31,18 @@ exports.userLogin =  function(req,res){
             //return res.status(401).send('Login or password is wrong.')
             res.send('')
         }
+    })
+}
+exports.updateUser = function(req,res){
+    var login = req.params.currentUser
+    var userName = req.body.userName
+    var password = req.body.password
+    var confirmPwd = req.body.confirmPwd
+    var email = req.body.email
+    sql = 'update user set name="'+userName+'",password="'+md5(password+'forexWEB')+'",email="'+email+'" where login="'+login+'"'
+    con.query(sql,function(err,result){
+        if(err) return res.status(500).send('Server error.')
+        //return res.status(201).send('User registerd.')
+        return res.send('')
     })
 }

@@ -17,6 +17,8 @@ route.get('/1YearPredict',forex_control.get1YearPredict)
 
 route.post('/userLogin',user_control.userLogin)
 route.post('/register',user_control.register)
+
+route.put('/updateUser/:currentUser',user_control.updateUser)
 /* route.post('/create', validate(bookSchema), book_controller.create)
 route.get('/list', book_controller.list)
 route.get('/list/:keyword', book_controller.keywordsearch)
