@@ -29,12 +29,17 @@ exports.getCurrencyByName = function(req,res){
         res.send(result)
     })
 }
+exports.getCurrencyName = function(req,res){
+    sql = 'select name from currency group by name'
+    con.query(sql,function(err,result){
+        if(err) throw err
+        res.send(result)
+    })
+}
 exports.get7DayPredict = function(req,res){
     name = req.query.name
-    time = req.query.time
-    priceType = req.query.priceType
     algorithm = req.query.algorithm
-    sql = 'select "'+priceType+'" from prediction_7day where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
+    sql = 'select * from prediction_7day where name="'+name+'" and algorithm="'+algorithm+'"'    
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -42,10 +47,8 @@ exports.get7DayPredict = function(req,res){
 }
 exports.get1MonthPredict = function(req,res){
     name = req.query.name
-    time = req.query.time
-    priceType = req.query.priceType
     algorithm = req.query.algorithm
-    sql = 'select "'+priceType+'" from prediction_1month where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
+    sql = 'select * from prediction_1month where name="'+name+'" and algorithm="'+algorithm+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -53,10 +56,8 @@ exports.get1MonthPredict = function(req,res){
 }
 exports.get1YearPredict = function(req,res){
     name = req.query.name
-    time = req.query.time
-    priceType = req.query.priceType
     algorithm = req.query.algorithm
-    sql = 'select "'+priceType+'" from prediction_1year where name="'+name+'" and time="'+time+'" and algorithm="'+algorithm+'"'
+    sql = 'select * from prediction_1year where name="'+name+'" and algorithm="'+algorithm+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)

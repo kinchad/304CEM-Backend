@@ -11,9 +11,10 @@ const bookSchema = require('../models/forex').bookSchema
 route.get('/', forex_control.test)
 route.get('/getLatestCurrency',forex_control.getLatestCurrency)
 route.get('/getCurrencyByName',forex_control.getCurrencyByName)
-route.get('/7dayPredict',forex_control.get7DayPredict)
-route.get('/1MonthPredict',forex_control.get1MonthPredict)
-route.get('/1YearPredict',forex_control.get1YearPredict)
+route.get('/getCurrencyName',forex_control.getCurrencyName)
+route.get('/sevenDayPredict',forex_control.get7DayPredict)
+route.get('/oneMonthPredict',forex_control.get1MonthPredict)
+route.get('/oneYearPredict',forex_control.get1YearPredict)
 
 route.post('/userLogin',user_control.userLogin)
 route.post('/register',user_control.register)
