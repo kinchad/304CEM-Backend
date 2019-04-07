@@ -63,3 +63,43 @@ exports.get1YearPredict = function(req,res){
         res.send(result)
     })
 }
+exports.getFavourList = function(req,res){
+    loginID = req.query.loginID
+    sql = 'select * from favour where login="'+loginID+'"'
+    con.query(sql,function(err,result){
+        if(err) throw err
+        res.send(result)
+    })
+}
+exports.addToFavour = function(req,res){
+    loginID = req.params.loginID
+    favourCurrency = req.body.favourCurrency
+    remarks = req.body.remarks
+    sql = 'insert into favour values("'+loginID+'","'+favourCurrency+'","'+remarks+'")'
+    console.log(sql)
+    con.query(sql,function(err,result){
+        if(err) return res.status(500).send('Server error.')
+        return res.send('')
+    })
+}
+exports.updateRemarks = function(req,res){
+    loginID = req.query.loginID
+    currencyName = req.query.currencyName
+    remarks = req.body.remarks
+    sql = 'update favour set remarks="'+remarks+'" where login="'+loginID+'" and currencyName="'+currencyName+'"'
+    con.query(sql,function(err,result){
+        if(err) return res.status(500).send('Server error.')
+        return res.send('')
+    })
+}
+exports.deleteFavour = function(req,res){
+    loginID = req.params.loginID
+    favourCurrency = req.params.favourCurrency
+    console.log(loginID)
+    console.log(favourCurrency)
+/*     sql = 'delete from favour where loginID="'+loginID+'" and currencyName="'+favourCurrency+'"'
+    con.query(sql,function(err,result){
+        if(err) return res.status(500).send('Server error.')
+        return res.send('')
+    }) */
+}

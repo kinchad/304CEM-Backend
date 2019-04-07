@@ -15,14 +15,16 @@ route.get('/getCurrencyName',forex_control.getCurrencyName)
 route.get('/sevenDayPredict',forex_control.get7DayPredict)
 route.get('/oneMonthPredict',forex_control.get1MonthPredict)
 route.get('/oneYearPredict',forex_control.get1YearPredict)
+route.get('/getFavourList',forex_control.getFavourList)
 
 route.post('/userLogin',user_control.userLogin)
 route.post('/register',user_control.register)
+route.post('/addToFavour/:loginID',forex_control.addToFavour)
 
 route.put('/updateUser/:currentUser',user_control.updateUser)
+
+route.delete('/deleteFavour/:loginID/:favourCurrency',forex_control.deleteFavour)
 /* route.post('/create', validate(bookSchema), book_controller.create)
-route.get('/list', book_controller.list)
-route.get('/list/:keyword', book_controller.keywordsearch)
 route.put('/update', validate(bookSchema), book_controller.update) */
 
 module.exports = route

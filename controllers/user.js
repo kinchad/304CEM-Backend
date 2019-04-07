@@ -24,9 +24,9 @@ exports.userLogin =  function(req,res){
     var login = req.body.loginID
     var password = req.body.password
     sql = 'select * from user where login="'+login+'" and password="'+md5(password+'forexWEB')+'"'
-    con.query(sql,function(err,result){        
+    con.query(sql,function(err,result){
         if(err) return res.status(500).send('Server error.')
-        if(result.length>0) return res.send(result)        
+        if(result.length>0) return res.send(result)
         else{
             //return res.status(401).send('Login or password is wrong.')
             res.send('')
