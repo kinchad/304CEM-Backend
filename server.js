@@ -17,7 +17,7 @@ App.use('/', forex)
 const port = 7777
 
 server = App.listen(port, () => {
-    console.log(`API Server is up and running on port numbet ${port}`)
+    console.log(`API Server is up and running on port number ${port}`)
 })
 
 module.exports = server;

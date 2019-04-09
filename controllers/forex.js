@@ -14,8 +14,24 @@ exports.test = function (req, res) {
 exports.testAuto = function(a,b){
     return a+b
 }
-exports.getLatestCurrency = function(req, res){
-    sql = 'select name, bid , ask, max(time) as time from currency group by name'
+exports.getLatestCurrency = function(req, res){    
+    sql = 'select name,ask, bid, max(time) as time from currency group by name'
+    con.query(sql,function(err,result){
+        if(err) throw err
+        res.send(result)
+    })
+}
+exports.getOneCurrencyAsk = function(req,res){
+    name = req.query.name
+    sql = 'select ask, max(time) from currency where name="'+name+'"'
+    con.query(sql,function(err,result){
+        if(err) throw err
+        res.send(result)
+    })
+}
+exports.getOneCurrencyBid = function(req,res){
+    name = req.query.name
+    sql = 'select bid, max(time) from currency where name="'+name+'"'
     con.query(sql,function(err,result){
         if(err) throw err
         res.send(result)
@@ -75,16 +91,15 @@ exports.addToFavour = function(req,res){
     loginID = req.params.loginID
     favourCurrency = req.body.favourCurrency
     remarks = req.body.remarks
-    sql = 'insert into favour values("'+loginID+'","'+favourCurrency+'","'+remarks+'")'
-    console.log(sql)
+    sql = 'insert into favour values("'+loginID+'","'+favourCurrency+'","'+remarks+'")' 
     con.query(sql,function(err,result){
         if(err) return res.status(500).send('Server error.')
         return res.send('')
     })
 }
 exports.updateRemarks = function(req,res){
-    loginID = req.query.loginID
-    currencyName = req.query.currencyName
+    loginID = req.params.loginID
+    currencyName = req.params[0]
     remarks = req.body.remarks
     sql = 'update favour set remarks="'+remarks+'" where login="'+loginID+'" and currencyName="'+currencyName+'"'
     con.query(sql,function(err,result){
@@ -94,12 +109,44 @@ exports.updateRemarks = function(req,res){
 }
 exports.deleteFavour = function(req,res){
     loginID = req.params.loginID
-    favourCurrency = req.params.favourCurrency
-    console.log(loginID)
-    console.log(favourCurrency)
-/*     sql = 'delete from favour where loginID="'+loginID+'" and currencyName="'+favourCurrency+'"'
+    favourCurrency = req.params[0]
+    sql = 'delete from favour where login="'+loginID+'" and currencyName="'+favourCurrency+'"'
+    console.log(sql)
     con.query(sql,function(err,result){
         if(err) return res.status(500).send('Server error.')
         return res.send('')
-    }) */
+    })
+}
+exports.buyOrder = function(req,res){
+    var newOrderID
+    loginID = req.params.loginID
+    currencyName = req.body.currencyName
+    currencyAsk = req.body.currencyAsk
+    usd = req.body.usd
+    sqlSelect = 'select orderID from trader where orderID>=all(select orderID from trader)'
+    con.query(sqlSelect,function(err,result){
+        if(err){        }
+        if(result=[]){
+            newOrderID = 1
+        }else{
+            console.log(result)
+        }
+/*         sqlInsert = 'insert into trader values('+newOrderID+',"'+loginID+'","'+currencyName+'",'+currencyAsk+','+usd+')'
+        console.log(sqlInsert)
+        con.query(sqlInsert,function(err,result){
+            if(err) return res.status(500).send('Server error.')
+            return res.send('')
+        }) */ 
+    })
+
+
+}
+exports.getOrderList = function(req,res){
+    loginID = req.query.loginID
+    sql = 'select * from trader where login="'+loginID+'"'
+    console.log(sql)
+    con.query(sql,function(err,result){
+        if(err) return res.status(500).send('Server error.')
+        return res.send(result)
+    })
 }

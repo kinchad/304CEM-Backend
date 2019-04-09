@@ -10,20 +10,25 @@ const bookSchema = require('../models/forex').bookSchema
 
 route.get('/', forex_control.test)
 route.get('/getLatestCurrency',forex_control.getLatestCurrency)
+route.get('/getOneCurrencyAsk',forex_control.getOneCurrencyAsk)
+route.get('/getOneCurrencyBid',forex_control.getOneCurrencyBid)
 route.get('/getCurrencyByName',forex_control.getCurrencyByName)
 route.get('/getCurrencyName',forex_control.getCurrencyName)
 route.get('/sevenDayPredict',forex_control.get7DayPredict)
 route.get('/oneMonthPredict',forex_control.get1MonthPredict)
 route.get('/oneYearPredict',forex_control.get1YearPredict)
 route.get('/getFavourList',forex_control.getFavourList)
+route.get('/getOrderList',forex_control.getOrderList)
 
 route.post('/userLogin',user_control.userLogin)
 route.post('/register',user_control.register)
 route.post('/addToFavour/:loginID',forex_control.addToFavour)
+route.post('/buyOrder/:loginID',forex_control.buyOrder)
 
 route.put('/updateUser/:currentUser',user_control.updateUser)
+route.put('/updateFavour/:loginID/*',forex_control.updateRemarks)
 
-route.delete('/deleteFavour/:loginID/:favourCurrency',forex_control.deleteFavour)
+route.delete('/deleteFavour/:loginID/*',forex_control.deleteFavour)
 /* route.post('/create', validate(bookSchema), book_controller.create)
 route.put('/update', validate(bookSchema), book_controller.update) */
 
