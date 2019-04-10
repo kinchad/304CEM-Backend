@@ -28,7 +28,6 @@ exports.userLogin =  function(req,res){
         if(err) return res.status(500).send('Server error.')
         if(result.length>0) return res.send(result)
         else{
-            //return res.status(401).send('Login or password is wrong.')
             res.send('')
         }
     })
@@ -42,7 +41,6 @@ exports.updateUser = function(req,res){
     sql = 'update user set name="'+userName+'",password="'+md5(password+'forexWEB')+'",email="'+email+'" where login="'+login+'"'
     con.query(sql,function(err,result){
         if(err) return res.status(500).send('Server error.')
-        //return res.status(201).send('User registerd.')
         return res.send('')
     })
 }

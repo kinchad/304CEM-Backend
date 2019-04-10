@@ -1,19 +1,12 @@
-const Express = require('express')
 const mysql = require('mysql')
 
-var con = mysql.createConnection({
+var con = mysql.createConnection({  //set up database connection
     host:'localhost',
     user:'root',
     password:'admin',
     database:'forex',
     dbPort:'3306'
 })
-exports.test = function (req, res) {
-    res.send({"status": 200, "Description": "Well... This is only a testing... "})
-}
-exports.testAuto = function(a,b){
-    return a+b
-}
 exports.getLatestCurrency = function(req, res){    
     sql = 'select name,ask, bid, max(time) as time from currency group by name'
     con.query(sql,function(err,result){
@@ -111,42 +104,8 @@ exports.deleteFavour = function(req,res){
     loginID = req.params.loginID
     favourCurrency = req.params[0]
     sql = 'delete from favour where login="'+loginID+'" and currencyName="'+favourCurrency+'"'
-    console.log(sql)
     con.query(sql,function(err,result){
         if(err) return res.status(500).send('Server error.')
         return res.send('')
-    })
-}
-exports.buyOrder = function(req,res){
-    var newOrderID
-    loginID = req.params.loginID
-    currencyName = req.body.currencyName
-    currencyAsk = req.body.currencyAsk
-    usd = req.body.usd
-    sqlSelect = 'select orderID from trader where orderID>=all(select orderID from trader)'
-    con.query(sqlSelect,function(err,result){
-        if(err){        }
-        if(result=[]){
-            newOrderID = 1
-        }else{
-            console.log(result)
-        }
-/*         sqlInsert = 'insert into trader values('+newOrderID+',"'+loginID+'","'+currencyName+'",'+currencyAsk+','+usd+')'
-        console.log(sqlInsert)
-        con.query(sqlInsert,function(err,result){
-            if(err) return res.status(500).send('Server error.')
-            return res.send('')
-        }) */ 
-    })
-
-
-}
-exports.getOrderList = function(req,res){
-    loginID = req.query.loginID
-    sql = 'select * from trader where login="'+loginID+'"'
-    console.log(sql)
-    con.query(sql,function(err,result){
-        if(err) return res.status(500).send('Server error.')
-        return res.send(result)
     })
 }
