@@ -4,27 +4,27 @@ const forex_control = require('../controllers/forex')
 const user_control = require('../controllers/user')
 
 const {validate, ValidationError} = require('express-json-validator')
-const bookSchema = require('../models/forex').bookSchema
 
-//const validator = Valiadtor.validate
-
-route.get('/', forex_control.test)
 route.get('/getLatestCurrency',forex_control.getLatestCurrency)
+route.get('/getOneCurrencyAsk',forex_control.getOneCurrencyAsk)
+route.get('/getOneCurrencyBid',forex_control.getOneCurrencyBid)
 route.get('/getCurrencyByName',forex_control.getCurrencyByName)
-route.get('/7dayPredict',forex_control.get7DayPredict)
-route.get('/1MonthPredict',forex_control.get1MonthPredict)
-route.get('/1YearPredict',forex_control.get1YearPredict)
+route.get('/getCurrencyName',forex_control.getCurrencyName)
+route.get('/sevenDayPredict',forex_control.get7DayPredict)
+route.get('/oneMonthPredict',forex_control.get1MonthPredict)
+route.get('/oneYearPredict',forex_control.get1YearPredict)
+route.get('/getFavourList',forex_control.getFavourList)
 
 route.post('/userLogin',user_control.userLogin)
 route.post('/register',user_control.register)
-/* route.post('/create', validate(bookSchema), book_controller.create)
-route.get('/list', book_controller.list)
-route.get('/list/:keyword', book_controller.keywordsearch)
-route.put('/update', validate(bookSchema), book_controller.update) */
+route.post('/addToFavour/:loginID',forex_control.addToFavour)
+
+route.put('/updateUser/:currentUser',user_control.updateUser)
+route.put('/updateFavour/:loginID/*',forex_control.updateRemarks)
+
+route.delete('/deleteFavour/:loginID/*',forex_control.deleteFavour)
 
 module.exports = route
-
-//exports.validate = validator.validate()
 
 route.use((err, req, res, next)=> {
     if(err){
